@@ -1,38 +1,44 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>TouchText
-        </title>
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
-        <!-- <link rel="stylesheet" href="my.css" /> -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.1.1/jquery.mobile-1.1.1.min.js">
-        </script>
-        <!-- <script src="my.js"></script> -->
-    </head>
-    <body>
-        <!-- Home -->
-        <div data-role="page" id="pageMain">
-            <div data-role="content">
-                Here is the text area.
-            </div>
-            <!-- Footer -->
-            <div data-theme="a" data-role="footer" data-position="fixed" >
-                <fieldset class="ui-grid-b">
-                    <div class="ui-block-a">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TouchText</title>
+
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+</head>
+<body>
+    <!-- Home -->
+    <div data-role="page" id="pageMain" style="background-image:url(img/background-whitejade.jpg); background-repeat:repeat-y repeat-x;">
+        <div data-role="content" id="text" style="text-align:center; text-shadow: 2px 1px 2px #FFFFFF; height=100%" >
+            <p>Here is the text area.</p>
+            <p>TODO: mask it</p>
+            <p>and</p>
+            <p>resize it <b>*automatically*</b></p>
+        </div>
+        <!-- Footer -->
+        <div data-theme="a" data-role="footer" data-position="fixed" >
+            <fieldset class="ui-grid-b">
+                <div class="ui-block-a">
                     <a href="#pageMain" data-role="button" > << </a>
                 </div>
-                    <div class="ui-block-b">
+                <div class="ui-block-b">
                     <a href="about.html" data-role="button" data-rel="dialog" data-transition="pop">?</a>
                 </div>
-                    <div class="ui-block-c">
+                <div class="ui-block-c">
                     <a href="#pageMain" data-role="button" > >> </a>
                 </div>
-                </fieldset>
-            </div>
+            </fieldset>
         </div>
-    </body>
+    </div>
+    <<script type="text/javascript">
+        // resize font
+        $(window).resize(function(){
+            $('#text').css('font-size',($(window).width()*0.1)+'px');
+        });
+        $('#text').css('font-size',($(window).width()*0.1)+'px');
+    </script>
+</body>
 </html>
