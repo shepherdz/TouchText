@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>TouchText</title>
 
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
-    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+    <link rel="stylesheet" href="js/jquery.mobile-1.1.1.css" />
+    <script src="js/jquery-1.8.0.js"></script>
+    <script src="js/jquery.mobile-1.1.1.js"></script>
 </head>
 <body>
     <!-- Home -->
     <div data-role="page" id="pageMain" style="background-image:url(img/background-whitejade.jpg); background-repeat:repeat-y repeat-x;">
-        <div data-role="content" id="text" style="text-align:center; text-shadow: 2px 1px 2px #FFFFFF; height=100%" >
+        <div data-role="content" id="text" style="text-align:center; text-shadow: 2px 1px 2px #FFFFFF; height:100%" >
             <p>Here is the text area.</p>
             <p>TODO: mask it</p>
             <p>and</p>
@@ -34,6 +34,36 @@
         </div>
     </div>
     <<script type="text/javascript">
+        function getMaxLength(strList) {
+            return strList.reduce(
+                function(pv, cv, index, array) { 
+                    return Math.max(pv, array[index].length); 
+                }, 
+                0
+            );
+
+            // var maxLength = 0;
+            // for (str in strList) {
+            //     if (strList[str].length > maxLength)
+            //         maxLength = strList[str].length;
+            // }
+            // return maxLength;
+        }
+
+        var texts = ["test text", "Here we show", "the BIG thing!", "YEAHHHHHH!!!!"];
+        var textHeight = texts.length;
+        var textWidth = getMaxLength(texts);
+
+        $('#text').click(function() {
+            //alert("height: " + textHeight.toString() + ", width: " + textWidth.toString());
+        });
+
+        // load text to screen
+        $('#text').empty();
+        texts.forEach(function (v, ind, arr) {
+            $('#text').append("<p>" + arr[ind] + "</p>");
+        });
+
         // resize font
         $(window).resize(function(){
             $('#text').css('font-size',($(window).width()*0.1)+'px');
