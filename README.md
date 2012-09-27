@@ -7,10 +7,9 @@ This apps works just like forismatic, plus the following features:
 * "Like" on facebook, "Share" to weibo
 
 TODO:
-* Auto font resize algorithm
 * Mask "dust" effect
-* Define the format of text source file
-* Load the text source file on initialization
-* Show next page when clicking "next"
 * Animation between page transition
 * Find better background images...
+
+FIXME:
+* When going back (<<), the text is not placed at middle sometimes.

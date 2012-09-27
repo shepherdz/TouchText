@@ -62,21 +62,23 @@
             });
 
             // get current text size
-            var currTextHeight = $('#text').height();
-            var currTextWidth = Math.max.apply(Math, $("#text>span").map(function() { return $(this).width(); }));
+            //$(text).css('font-size', 10);
+            var textHeight = $('#text').height();
+            var textWidth = Math.max.apply(Math, $("#text>span").map(function() { return $(this).width(); }));
 
             var currFontSize = $('#text').css('font-size');
 
-            var currWindowHeight = $('#text').height();
-            var currWindowWidth = $('#text').width();
+            var windowHeight = $(window).innerHeight() - $(footer).outerHeight();
+            var windowWidth = $(window).width();
 
-            var newFontSize = currFontSize * Math.min(currWindowHeight / currTextHeight, currWindowWidth / currTextWidth);
+            // TODO: if windowHeight > textHeight, then it works fine
+            // if windowHeight < textHeight, then we probably needs to use "max". Haven't thought it through, though.
+            var newFontSize = parseInt(currFontSize) * Math.min(windowHeight / textHeight, windowWidth / textWidth) * 0.6;
             newFontSize = Math.max(20, newFontSize);
-            //alert(newFontSize);
-        
+            
             // resize font
-            $('#text').css('font-size', ($(window).width() * 0.1) + 'px');            // vertical align
-            $('#text').css('top', Math.max(0, ($(pageMain).height() - $('#footer').height() - $('#text').height()) / 2));
+            $('#text').css('font-size', newFontSize + 'px');            // vertical align
+            $('#text').css('top', Math.max(0, (windowHeight - $('#text').height()) / 2));
         }
 
         // init
