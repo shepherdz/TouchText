@@ -12,4 +12,3 @@ TODO:
 * Find better background images...
 
 FIXME:
-* When going back (<<), the text is not placed at middle sometimes.

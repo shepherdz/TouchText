@@ -14,12 +14,6 @@
             background-repeat: repeat-y repeat-x;
         }
 
-        #container
-        {
-            height:100%;
-            width: 100%;
-        }
-
         #text {
             position: relative;
             text-align: center;
@@ -33,19 +27,34 @@
         <div data-role="content" id="text">
         </div>
         <!-- Footer -->
-        <div id="footer" data-theme="a" data-role="footer" data-position="fixed">
+        <div id="footer" data-theme="c" data-role="footer" data-position="fixed">
             <fieldset class="ui-grid-b">
-                <div class="ui-block-a" data-role="button" id="prevPage"><< </div>
+                <div class="ui-block-a" data-role="button" id="prevPage"> &lt;&lt; </div>
                 <div class="ui-block-b">
                     <a href="about.html" data-role="button" data-rel="dialog" data-transition="pop" style="width:100%">? </a>
                 </div>
-                <div class="ui-block-c" data-role="button" id="nextPage">>> </div>
+                <div class="ui-block-c" data-role="button" id="nextPage"> &gt;&gt; </div>
             </fieldset>
         </div>
     </div>
 
     <script src="app.js"></script>
     <script type="text/javascript">
+        function disableButtonIfNeeded() {
+            if (currPage == 0) {
+                $(prevPage).addClass("ui-disabled");
+            }
+            else {
+                $(prevPage).removeClass("ui-disabled");
+            }
+
+            if (currPage == numPages - 1) {
+                $(nextPage).addClass("ui-disabled");
+            }
+            else {
+                $(nextPage).removeClass("ui-disabled");
+            }
+        }
         // texts: a list of strings
         function showText(texts) {
             var textHeight = texts.length;
@@ -79,6 +88,8 @@
             // resize font
             $('#text').css('font-size', newFontSize + 'px');            // vertical align
             $('#text').css('top', Math.max(0, (windowHeight - $('#text').height()) / 2));
+
+            disableButtonIfNeeded();
         }
 
         // init
@@ -89,6 +100,9 @@
         $(window).load(function () {
             showText(textPages[currPage]);
         });
+
+        // bug: IE doesn't support .load()
+        // window.onloadeddata="showText(textPages[currPage])";
 
         // resize
         $(window).resize(function () {
