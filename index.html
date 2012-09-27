@@ -14,10 +14,16 @@
             background-repeat: repeat-y repeat-x;
         }
 
+        #container
+        {
+            height:100%;
+            width: 100%;
+        }
+
         #text {
+            position: relative;
             text-align: center;
             text-shadow: 2px 1px 2px #FFFFFF;
-            height: 100%;
         }
     </style>
 </head>
@@ -27,42 +33,79 @@
         <div data-role="content" id="text">
         </div>
         <!-- Footer -->
-        <div data-theme="a" data-role="footer" data-position="fixed">
+        <div id="footer" data-theme="a" data-role="footer" data-position="fixed">
             <fieldset class="ui-grid-b">
-                <div class="ui-block-a">
-                    <a href="#pageMain" data-role="button"><< </a>
-                </div>
+                <div class="ui-block-a" data-role="button" id="prevPage"><< </div>
                 <div class="ui-block-b">
-                    <a href="about.html" data-role="button" data-rel="dialog" data-transition="pop">? </a>
+                    <a href="about.html" data-role="button" data-rel="dialog" data-transition="pop" style="width:100%">? </a>
                 </div>
-                <div class="ui-block-c">
-                    <a href="#pageMain" data-role="button">>> </a>
-                </div>
+                <div class="ui-block-c" data-role="button" id="nextPage">>> </div>
             </fieldset>
         </div>
     </div>
 
     <script src="app.js"></script>
     <script type="text/javascript">
-        var texts = ["test text", "Here we show", "the BIG thing!", "YEAHHHHHH!!!!"];
-        var textHeight = texts.length;
-        var textWidth = getMaxLength(texts);
+        // texts: a list of strings
+        function showText(texts) {
+            var textHeight = texts.length;
+            var textWidth = getMaxLength(texts);
 
-        $('#text').click(function () {
-            //alert("height: " + textHeight.toString() + ", width: " + textWidth.toString());
+            $('#text').click(function () {
+                //alert("height: " + textHeight.toString() + ", width: " + textWidth.toString());
+            });
+
+            // update text on screen
+            $('#text').empty();
+            texts.forEach(function (v, ind, arr) {
+                $('#text').append("<span>" + arr[ind] + "</span> <br />");
+            });
+
+            // get current text size
+            var currTextHeight = $('#text').height();
+            var currTextWidth = Math.max.apply(Math, $("#text>span").map(function() { return $(this).width(); }));
+
+            var currFontSize = $('#text').css('font-size');
+
+            var currWindowHeight = $('#text').height();
+            var currWindowWidth = $('#text').width();
+
+            var newFontSize = currFontSize * Math.min(currWindowHeight / currTextHeight, currWindowWidth / currTextWidth);
+            newFontSize = Math.max(20, newFontSize);
+            //alert(newFontSize);
+        
+            // resize font
+            $('#text').css('font-size', ($(window).width() * 0.1) + 'px');            // vertical align
+            $('#text').css('top', Math.max(0, ($(pageMain).height() - $('#footer').height() - $('#text').height()) / 2));
+        }
+
+        // init
+        var textPages = loadText();
+        var currPage = 0;
+        var numPages = textPages.length;
+
+        $(window).load(function () {
+            showText(textPages[currPage]);
         });
 
-        // load text to screen
-        $('#text').empty();
-        texts.forEach(function (v, ind, arr) {
-            $('#text').append("<p>" + arr[ind] + "</p>");
-        });
-
-        // resize font
+        // resize
         $(window).resize(function () {
-            $('#text').css('font-size', ($(window).width() * 0.1) + 'px');
+            showText(textPages[currPage]);
         });
-        $('#text').css('font-size', ($(window).width() * 0.1) + 'px');
+
+        // page transition
+        $('#prevPage').click(function () {
+            if (currPage > 0) {
+                showText(textPages[--currPage]);
+            }
+        });
+
+        $('#nextPage').click(function () {
+            if (currPage < numPages - 1) {
+                showText(textPages[++currPage]);
+            }
+        });
+        
     </script>
 </body>
 </html>

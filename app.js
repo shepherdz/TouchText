@@ -14,3 +14,12 @@ function getMaxLength(strList) {
     // return maxLength;
 }
 
+function loadText() {
+    return [
+        ["I", "have", "something", "to", "tell", "you"],
+        ["p1", "test text", "Here we show", "the BIG thing!", "YEAHHHHHH!!!!"],
+        ["p2", "oh!!!"],
+        ["END"]
+    ];
+}
+
