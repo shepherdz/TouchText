@@ -8,7 +8,7 @@ This apps works just like forismatic, plus the following features:
 
 TODO:
 * Mask "dust" effect
-* Animation between page transition
 * Find better background images...
-
+* Custom font/color/style of input file
+* Load input text from file
 FIXME:
