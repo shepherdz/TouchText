@@ -92,17 +92,27 @@
             disableButtonIfNeeded();
         }
 
+        function transitionToPage(pageIndex) {
+            if (pageIndex < 0 || pageIndex >= numPages) {
+                return;
+            }
+
+            // Note: .fade() doesn't work here, because the calculation in showText() requires the text be displayed, rather than hidden.
+            // .stop() is useful to prevent issues when the buttons are clicked very quickly.
+            $(text).stop().animate({ opacity: 0 }, 700, function () {
+                showText(textPages[pageIndex]);
+                $(text).stop().animate({ opacity: 1 }, 700);
+            });
+        }
+
         // init
         var textPages = loadText();
         var currPage = 0;
         var numPages = textPages.length;
 
-        $(window).load(function () {
+        $(document).ready(function () {
             showText(textPages[currPage]);
         });
-
-        // bug: IE doesn't support .load()
-        // window.onloadeddata="showText(textPages[currPage])";
 
         // resize
         $(window).resize(function () {
@@ -112,13 +122,13 @@
         // page transition
         $('#prevPage').click(function () {
             if (currPage > 0) {
-                showText(textPages[--currPage]);
+                transitionToPage(--currPage);
             }
         });
 
         $('#nextPage').click(function () {
             if (currPage < numPages - 1) {
-                showText(textPages[++currPage]);
+                transitionToPage(++currPage);
             }
         });
         
